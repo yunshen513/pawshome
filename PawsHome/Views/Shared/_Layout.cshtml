@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        li:hover {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="font-weight:700;background-color:brown">
+        <div class="container">
+            <div class="navbar-header">
+                <img src="https://i.loli.net/2019/08/26/QyFtTsuxdPk7pqB.png"
+                     style="width:50px;height:50px">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand">
+                    <div style="font-style:italic;color:whitesmoke;width:inherit">Welcome To Paws Home !</div>
+                </div>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" style="float:right">
+                    <li><a style="color:whitesmoke" href="/Home/Index">Home</a></li>
+                    <li><a style="color:whitesmoke" href="/Dogs/Report">Get Started</a></li>
+                    <li><a style="color:whitesmoke" href="/Dogs/Index">Breeds</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

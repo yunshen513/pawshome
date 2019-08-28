@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PawsHome.Models.Dog>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a name="top"></a>
+<div class="container" style="width:980px">
+    <h1>Breeds</h1>
+    <hr />
+    @foreach (var item in Model)
+    {
+        <div class="row" style="box-shadow:inset 5px 5px 20px #ccc;margin:2%">
+            <h1 class="col-md-12 col-xs-12" style="color:brown">@item.breed</h1>
+            <div class="col-md-5 col-xs-12" style="margin:0 0 0 0">
+                <img src="@item.url" style="width:300px;height:200px" />
+            </div>
+            <div class="col-md-7 col-xs-12">
+                <div class="col-md-5 col-xs-3" style="font-weight:700;color:brown">
+                    <p>Size</p>
+                    <p>Origin</p>
+                    <p>Temperament</p>
+                    <p>Height (cm)</p>
+                    <p>Weight (kg)</p>
+                    <p>Expectancy (Year)</p>
+                    <p>Exercise (minutes per day)</p>
+                </div>
+                <div class="col-md-2 col-xs-9">
+                    <p>@item.size</p>
+                    <p>@item.origin</p>
+                    <p>@item.temperament</p>
+                    <p>@item.height</p>
+                    <p>@item.weight</p>
+                    <p>@item.expectancy</p>
+                    <p>@item.exercise</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<a id="back" class="button button-glow button-circle button-primary" href="#top" style="float:right">
+    <span class="glyphicon glyphicon-arrow-up"></span>
+</a>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#back").mouseover(function (evt) {
+                document.getElementById("back").innerHTML = "top";
+            });
+
+            $("#back").mouseout(function (evt) {
+                document.getElementById("back").innerHTML = "<span class=\"glyphicon glyphicon-arrow-up\"></span>";
+            });
+            
+        });
+
+    </script>
+    }
+
+
+

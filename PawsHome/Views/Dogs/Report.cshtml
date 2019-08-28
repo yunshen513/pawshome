@@ -1,0 +1,207 @@
+﻿@model IEnumerable<PawsHome.Models.Dog>
+
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h2 {
+        text-align: center;
+        margin: 50px 50px 50px 50px;
+        color: brown;
+    }
+
+    h4 {
+        text-align:center;
+        margin: 20px 20px 20px 20px;
+        color:brown;
+    }
+
+    p {
+        font-weight: bolder;
+        font: x-large;
+        font-style: italic;
+    }
+
+    img {
+        width: 300px;
+        height: 200px;
+    }
+</style>
+<div class="container body-content">
+    <h1>Get Started</h1>
+    <h2>Select the breed to see how much it might cost</h2>
+    <div class="row">
+        <div class="col-md-6" style="text-align:right">
+            <img src="https://i.loli.net/2019/08/27/Wa7dbYoAyuX1PZk.png" style="height:100%"/>
+        </div>
+        <div class="col-md-6">
+            <h3>@Html.DropDownList("Breeds", (IEnumerable<SelectListItem>)ViewBag.Breeds, "----Select----", new { @id = "drop" })</h3>
+            <img id="t5" />
+            <h4>Estimated Annual Cost</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Activity</th>
+                        <th>Cost (AUD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dog Food</td>
+                        <td id="t0"></td>
+                    </tr>
+                    <tr>
+                        <td>Dog Health</td>
+                        <td id="t1"></td>
+                    </tr>
+                    <tr>
+                        <td>Dog Licence</td>
+                        <td id="t2"></td>
+                    </tr>
+                    <tr>
+                        <td>Miscellaneous</td>
+                        <td id="t3"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:800;font-size:larger">Total</td>
+                        <td id="t4" style="font-weight:800;font-size:larger"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h4>Time Staying With Dog</h4>
+            <div id="t6" style="font-weight:800;font-size:larger"></div>
+        </div>
+    </div>
+    <hr />
+    <h2>If you have no idea about which breed might suit you</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <img id="person" style="width:300px;height:300px;float:right;"
+                 src="https://cdn.pixabay.com/photo/2016/12/21/08/58/questions-1922476_960_720.jpg">
+        </div>
+        <div class="col-md-6">
+            <p>What is your living conditon?</p>
+            <div id="size-group">
+                <input type="radio" class="size" name="size" value="Large" checked />I live in a house
+                <input type="radio" class="size" name="size" value="Medium" />I live in an apartment
+                <input type="radio" class="size" name="size" value="Small" />I live with others
+            </div>
+            <hr />
+            <p>How much time do you want to spend with your dog each day?</p>
+            <div id="exercise-group">
+                <input type="radio" class="time" name="time" value=9999 checked />More than 60 minutes
+                <input type="radio" class="time" name="time" value=60 />30-60 minutes
+                <input type="radio" class="time" name="time" value=30 />Less than 30 minutes
+            </div>
+            <hr />
+            <p>How much money do you want to spend on your dog each year?</p>
+            <div id="budget-group">
+                <input type="radio" class="budget" name="budget" value=9999 checked />More than 2000 AUD
+                <input type="radio" class="budget" name="budget" value=2000 />1000 - 2000 AUD
+                <input type="radio" class="budget" name="budget" value=1000 />Less than 1000 AUD
+            </div>
+            <hr />
+            <button class="button button-3d button-primary button-rounded" id="go">
+                Go
+            </button>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <h4 id="message"></h4>
+        <div class="col-md-3 col-xs-12" id="r0">
+        </div>
+        <div class="col-md-3 col-xs-12" id="r1">
+        </div>
+        <div class="col-md-3 col-xs-12" id="r2">
+        </div>
+        <div class="col-md-3 col-xs-12" id="r3" style="float:right">
+        </div>
+    </div>
+    <a id="b0" name="bottom" href="#bottom"></a>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+     //display estimated cost
+        $(document).ready(function () {
+
+            //listen dropdown list change
+            $("#drop").change(function (evt) {
+                if ($("#drop").val() != 0) {
+                @foreach (var item in Model)
+                {<text>
+
+                    //display cost
+                    if ($("#drop").val() == @item.id) {
+                        var annual = parseInt(@item.cost * 12);
+                        document.getElementById("t0").innerHTML = parseInt(annual * 0.4);
+                        document.getElementById("t1").innerHTML = parseInt(annual * 0.28);
+                        document.getElementById("t2").innerHTML = 180;
+                        document.getElementById("t3").innerHTML = parseInt(annual * 0.3);
+                        document.getElementById("t4").innerHTML =
+                            parseInt(annual * 0.4) + parseInt(annual * 0.28) + 180 + parseInt(annual * 0.3);
+                        document.getElementById("t5").src = "@item.url";
+                        document.getElementById("t6").innerHTML = "@item.exercise minutes per day";
+                    }
+                </text>}
+                }
+
+                //if nothing selected, erase info
+                else {
+                    document.getElementById("picture").src = "";
+                    for (var i = 0; i < 7; i++) {
+                        document.getElementById("t" + i).innerHTML = "";
+                    }
+                }
+            });
+
+            //recommend
+            $("#go").click(function (evt) {
+                var breedList = [];
+                var urlList = [];
+                for (var i = 0; i < 4; i++) {
+                    document.getElementById("r" + i).innerHTML = "";
+                }
+
+                //filter
+                @foreach (var item in Model) {<text>
+                if ($(".size:checked").val() == "@item.size" &&
+                    $(".budget:checked").val() >= @item.cost * 12 &&
+                    $(".time:checked").val() >= @item.exercise) {
+                    breedList.push("@item.breed");
+                    urlList.push("@item.url");
+                }
+                </text>}
+
+                //display recommended dog
+                if (breedList.length > 0) {
+                    document.getElementById("message").innerHTML = "Guess you might like";
+                    for (var i = 0; i < breedList.length && i < 3; i++) {
+                        document.getElementById("r" + i).innerHTML = "<p>" + breedList[i] + "</p>"
+                            + "<img src=" + urlList[i] + " />";
+                    }
+
+                    document.getElementById("r3").innerHTML = "<button class=\"button button-3d button-caution button-rounded\" id=close style=\"float:right\">Close</button>";
+                    $("#close").click(function (evt) {
+                        for (var i = 0; i < 4; i++) {
+                            document.getElementById("r" + i).innerHTML = "";
+                        }
+                        document.getElementById("message").innerHTML = "";
+                    });
+                }
+
+                //guide to all breeds if no dog matches
+                else {
+                    document.getElementById("message").innerHTML =
+                        "<a class=\"button button-glow button-border button-primary\" href=/Dogs/Index> >>> Not found what you want, go to check all breeds</a>"
+                }
+
+                document.getElementById("b0").click();
+
+            });
+
+        });
+    </script>
+}
