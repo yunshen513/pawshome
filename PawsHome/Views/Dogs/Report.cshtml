@@ -12,9 +12,9 @@
     }
 
     h4 {
-        text-align:center;
+        text-align: center;
         margin: 20px 20px 20px 20px;
-        color:brown;
+        color: brown;
     }
 
     p {
@@ -33,7 +33,7 @@
     <h2>Select a breed to see how much it might cost</h2>
     <div class="row">
         <div class="col-md-6" style="text-align:right">
-            <img src="https://i.loli.net/2019/08/27/Wa7dbYoAyuX1PZk.png" style="height:100%"/>
+            <img src="https://i.loli.net/2019/08/27/Wa7dbYoAyuX1PZk.png" style="height:100%" />
         </div>
         <div class="col-md-6">
             <h3>@Html.DropDownList("Breeds", (IEnumerable<SelectListItem>)ViewBag.Breeds, "----Select----", new { @id = "drop" })</h3>
@@ -70,7 +70,7 @@
                 </tbody>
             </table>
             <hr />
-            <h4>Time Staying With Dog</h4>
+            <h4>Time Playing With Dog</h4>
             <div id="t6" style="font-weight:800;font-size:larger"></div>
         </div>
     </div>
@@ -84,23 +84,34 @@
         <div class="col-md-6">
             <p>What is your living conditon?</p>
             <div id="size-group">
-                <input type="radio" class="size" name="size" value="Large" checked />I live in a house
-                <input type="radio" class="size" name="size" value="Medium" />I live in an apartment
-                <input type="radio" class="size" name="size" value="Small" />I live with others
+                <input type="radio" class="size" name="size" value=5 checked /><span>I live in a house</span>
+                <input type="radio" class="size" name="size" value=3 /><span>I live in an apartment</span>
+                <input type="radio" class="size" name="size" value=2 /><span>I live with others</span>
+            </div>
+            <hr />
+            <p>What kind of dog do you like?</p>
+            <div id="temper-group">
+                <input type="radio" class="temper" name="temper" value="Friendly" checked /><span>Friendly</span>
+                <input type="radio" class="temper" name="temper" value="Intelligent" /><span>Intelligent</span>
+                <input type="radio" class="temper" name="temper" value="Fearless" /><span>Fearless</span>
+                <input type="radio" class="temper" name="temper" value="Gentle" /><span>Gentle</span>
+                <input type="radio" class="temper" name="temper" value="Loyal" /><span>Loyal</span>
+                <input type="radio" class="temper" name="temper" value="Alert" /><span>Alert</span>
+                <input type="radio" class="temper" name="temper" value="Brave" /><span>Brave</span>
             </div>
             <hr />
             <p>How much time do you want to spend with your dog each day?</p>
             <div id="exercise-group">
-                <input type="radio" class="time" name="time" value=9999 checked />More than 60 minutes
-                <input type="radio" class="time" name="time" value=60 />30-60 minutes
-                <input type="radio" class="time" name="time" value=30 />Less than 30 minutes
+                <input type="radio" class="time" name="time" value=9999 checked /><span>More than 60 minutes</span>
+                <input type="radio" class="time" name="time" value=60 /><span>30-60 minutes</span>
+                <input type="radio" class="time" name="time" value=30 /><span>Less than 30 minutes</span>
             </div>
             <hr />
             <p>How much money do you want to spend on your dog each year?</p>
             <div id="budget-group">
-                <input type="radio" class="budget" name="budget" value=9999 checked />More than 2000 AUD
-                <input type="radio" class="budget" name="budget" value=2000 />1000 - 2000 AUD
-                <input type="radio" class="budget" name="budget" value=1000 />Less than 1000 AUD
+                <input type="radio" class="budget" name="budget" value=9999 checked /><span>More than 2000 AUD</span>
+                <input type="radio" class="budget" name="budget" value=2000 /><span>1500 - 2000 AUD</span>
+                <input type="radio" class="budget" name="budget" value=1500 /><span>Less than 1500 AUD</span>
             </div>
             <hr />
             <button class="button button-3d button-primary button-rounded" id="go">
@@ -109,17 +120,11 @@
             <hr />
         </div>
     </div>
-    <div class="row">
-        <h4 id="message"></h4>
-        <div class="col-md-3 col-xs-12" id="r0">
-        </div>
-        <div class="col-md-3 col-xs-12" id="r1">
-        </div>
-        <div class="col-md-3 col-xs-12" id="r2">
-        </div>
-        <div class="col-md-3 col-xs-12" id="r3" style="float:right">
-        </div>
-    </div>
+
+    <div id="message" style="text-align:center;margin:10px;"></div>
+    <div class="row" id="recommend" style="text-align:center"></div>
+    <div id="r3" style="text-align:center;margin:10px"></div>
+
     <a id="b0" name="bottom" href="#bottom"></a>
 </div>
 @section Scripts{
@@ -161,15 +166,24 @@
             $("#go").click(function (evt) {
                 var breedList = [];
                 var urlList = [];
-                for (var i = 0; i < 4; i++) {
-                    document.getElementById("r" + i).innerHTML = "";
-                }
+                document.getElementById("recommend").innerHTML = "";
+                document.getElementById("message").innerHTML = "";
+                document.getElementById("r3").innerHTML = ""; 
+
+                //set info
+                document.getElementById("message").innerHTML += "<h4>According to your choices:</h4>";
+                document.getElementById("message").innerHTML += "<p>" + $(".size:checked + span").text() + "</p>";
+                document.getElementById("message").innerHTML += "<p>I prefer a " + $(".temper:checked + span").text() + " dog</p>";
+                document.getElementById("message").innerHTML += "<p>I can spend " + $(".budget:checked + span").text() + " for my dog each year</p>";
+                document.getElementById("message").innerHTML += "<p>I can spend " + $(".time:checked + span").text() + " with my dog each day</p>";
+                document.getElementById("message").innerHTML += "<h4>Guess you might like</h4>";
 
                 //filter
                 @foreach (var item in Model) {<text>
-                if ($(".size:checked").val() == "@item.size" &&
-                    $(".budget:checked").val() >= @item.cost * 12 &&
-                    $(".time:checked").val() >= @item.exercise) {
+                if ($(".size:checked").val() >= @item.size &&
+                    $(".budget:checked").val() >= ((@item.cost * 12)/0.98 + 180) &&
+                    $(".time:checked").val() >= @item.exercise &&
+                    $(".temper:checked").val() == "@item.temperament" ) {
                     breedList.push("@item.breed");
                     urlList.push("@item.url");
                 }
@@ -177,25 +191,35 @@
 
                 //display recommended dog
                 if (breedList.length > 0) {
-                    document.getElementById("message").innerHTML = "Guess you might like";
+                    //set layout
+                    var col;
+                    if (breedList.length >= 3) {
+                        col = 4;
+                    }
+                    else {
+                        col = 12 / breedList.length;
+                    }
+
+                    //add element
                     for (var i = 0; i < breedList.length && i < 3; i++) {
+                        document.getElementById("recommend").innerHTML += "<div id=\"r" + i + "\" class=\"col-md-" + col + "\"></div>";
                         document.getElementById("r" + i).innerHTML = "<p>" + breedList[i] + "</p>"
                             + "<img src=" + urlList[i] + " />";
                     }
+                    document.getElementById("r3").innerHTML = "<button class=\"button button-3d button-primary button-rounded\" id=close>OK</button>";
 
-                    document.getElementById("r3").innerHTML = "<button class=\"button button-3d button-caution button-rounded\" id=close style=\"float:right\">Close</button>";
+                    //add close button
                     $("#close").click(function (evt) {
-                        for (var i = 0; i < 4; i++) {
-                            document.getElementById("r" + i).innerHTML = "";
-                        }
                         document.getElementById("message").innerHTML = "";
+                        document.getElementById("recommend").innerHTML = "";
+                        document.getElementById("r3").innerHTML = "";
                     });
                 }
 
                 //guide to all breeds if no dog matches
                 else {
                     document.getElementById("message").innerHTML =
-                        "<a class=\"button button-glow button-border button-primary\" href=/Dogs/Index> >>> Not found what you want, go to check all breeds</a>"
+                        "<a class=\"button button-glow button-border button-primary\" href=/Dogs/Index>No breed matches, click here to see more breeds</a>"
                 }
 
                 document.getElementById("b0").click();

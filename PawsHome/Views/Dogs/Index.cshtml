@@ -11,22 +11,30 @@
     @foreach (var item in Model)
     {
         <div class="row" style="box-shadow:inset 5px 5px 20px #ccc;margin:2%">
-            <h1 class="col-md-12 col-xs-12" style="color:brown">@item.breed</h1>
-            <div class="col-md-5 col-xs-12" style="margin:0 0 0 0">
+            <h1 style="color:brown">@item.breed</h1>
+            <div class="col-md-5" style="margin:0 0 0 0">
                 <img src="@item.url" style="width:300px;height:200px" />
             </div>
-            <div class="col-md-7 col-xs-12">
-                <div class="col-md-5 col-xs-3" style="font-weight:700;color:brown">
-                    <p>Size</p>
+            <div class="col-md-7">
+                <div class="col-md-4 col-xs-2" style="font-weight:700;color:brown">
+                    <p><span class="glyphicon glyphicon-"></span>Size</p>
                     <p>Origin</p>
                     <p>Temperament</p>
-                    <p>Height (cm)</p>
-                    <p>Weight (kg)</p>
-                    <p>Expectancy (Year)</p>
-                    <p>Exercise (minutes per day)</p>
+                    <p>Height(cm)</p>
+                    <p>Weight(kg)</p>
+                    <p>Expectancy(year)</p>
+                    <p>Exercise(minutes per day)</p>
                 </div>
-                <div class="col-md-2 col-xs-9">
-                    <p>@item.size</p>
+                <div class="col-md-3 col-xs-2">
+                    @{ switch (item.size)
+                        {
+                            case "5":<p>Giant</p>break;
+                            case "4":<p>Large</p>break;
+                            case "3":<p>Medium</p>break;
+                            case "2":<p>Small</p>break;
+                            case "1":<p>Toy</p>break;
+                        }
+                    }
                     <p>@item.origin</p>
                     <p>@item.temperament</p>
                     <p>@item.height</p>

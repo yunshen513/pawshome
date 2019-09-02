@@ -154,6 +154,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\PawsHome - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\PawsHome0829 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -176,7 +177,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Chart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Dogs\Create.cshtml" />
     <Content Include="Views\Dogs\Delete.cshtml" />

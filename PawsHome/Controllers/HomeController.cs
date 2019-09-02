@@ -13,10 +13,8 @@ namespace PawsHome.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Chart()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
