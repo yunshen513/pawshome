@@ -2,8 +2,25 @@
     ViewBag.Title = "Home Page";
 }
 <style>
-    img {
+    .car_pic {
         width: 100%;
+    }
+
+    .carousel-caption {
+        top: 18%;
+        bottom: auto;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        padding: 20px;
+        margin: 5%;
+        width: 40%;
+    }
+
+    .title_pic {
+        width: 100%;
+        height: 100%;
     }
 </style>
 <div id="home" class="carousel slide" data-ride="carousel" data-interval="8000">
@@ -15,31 +32,35 @@
     </ol>
 
     <div class="carousel-inner">
+
         <div class="item active">
-            <div class="carousel-caption" style="top:20%;bottom:auto">
+            <div class="carousel-caption">
                 <h1>Ready to have a dog ?</h1>
                 <h3>You need to know these...</h3>
-                <p>
-                    <a class="button button-3d button-primary button-rounded" href="/Dogs/Report">Get Started</a>
-                </p>
+                <a class="button button-3d button-primary button-rounded" href="/Dogs/Report">Get Started</a>
             </div>
-            <img src="https://cdn.pixabay.com/photo/2017/04/25/23/39/dog-2261160_960_720.jpg" />
+            <img class="car_pic" src="https://cdn.pixabay.com/photo/2017/04/25/23/39/dog-2261160_960_720.jpg" />
         </div>
+
         <div class="item">
-            @*
-                <div class="carousel-caption" style="top:30%;bottom:auto">
-                    <h1>How to keep dog healthy ?</h1>
-                    <h3>You need to know these...</h3>
-                    <p>
-                        <a class="btn btn-lg btn-primary" href="#">Learn more</a>
-                    </p>
-                </div>*@
-            <img src="https://cdn.pixabay.com/photo/2015/09/02/15/01/puppy-919223_960_720.jpg" />
+            <div class="carousel-caption">
+                <h1>Ready to have a dog ?</h1>
+                <h3>You need to know these...</h3>
+                <a class="button button-3d button-primary button-rounded" href="/Dogs/Report">Get Started</a>
+            </div>
+            <img class="car_pic" src="https://cdn.pixabay.com/photo/2015/09/02/15/01/puppy-919223_960_720.jpg" />
         </div>
+
         <div class="item">
-            <img src="https://cdn.pixabay.com/photo/2015/05/30/19/53/playing-puppies-790638_960_720.jpg" />
+            <div class="carousel-caption">
+                <h1>Ready to have a dog ?</h1>
+                <h3>You need to know these...</h3>
+                <a class="button button-3d button-primary button-rounded" href="/Dogs/Report">Get Started</a>
+            </div>
+            <img class="car_pic" src="https://cdn.pixabay.com/photo/2015/05/30/19/53/playing-puppies-790638_960_720.jpg" />
         </div>
     </div>
+
     <a class="carousel-control left" href="#home" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
@@ -47,24 +68,26 @@
         <span class="glyphicon glyphicon-chevron-right"></span>
     </a>
 </div>
-<div style="margin: 10% 20% 0 20%">
+
+
+<div class="card col-md-6 col-sm-6">
     <h2>Popular breeds</h2>
-    <p>Do you know which breeds are popular in Victoria?</p>
-    <img src="https://i.loli.net/2019/08/27/7B4kSWCnGcDiuUV.png" class="img-rounded" />
-    <a class="button button-3d button-primary button-rounded" href="/Home/Chart">Learn More</a>
+    <h4>Do you know which breeds are popular in Victoria?</h4>
+    <img class="title_pic" src="https://cdn.pixabay.com/photo/2016/06/13/13/20/animals-1454214_960_720.png" />
+    <p style="margin:20px"><a class="button button-3d button-primary button-rounded" href="/Home/Chart">Learn More</a></p>
 </div>
 
-<div style="margin: 10% 20% 0 20%">
-    <h2>Favorite names</h2>
-    <p>What do you want to call your dog?</p>
-    <img src="https://i.loli.net/2019/08/27/f9mFJYvzw4chAey.png" class="img-rounded" />
-    <p style="margin:20px 20px 20px 20px">Comming Soon...</p>
+<div class="card col-md-6 col-sm-6">
+    <h2>Ownership budget</h2>
+    <h4>Do you know how much a dog would cost in Victoria?</h4>
+    <img class="title_pic" src="https://i.loli.net/2019/09/08/vdOXryFB7mt3qnE.png" />
+    <p style="margin:20px"><a class="button button-3d button-primary button-rounded" href="/Dogs/Budget">Learn More</a></p>
 </div>
 
 
 @section Scripts{
     <script>
-        /*
+
         var once_per_session = 1
         var bool
 
@@ -113,7 +136,28 @@
             passwordProtect()
         else
             loadornot()
-            */
+
+        //resize carousel
+        $(window).resize(function (evt) {
+            var h1 = 32;
+            var h3 = 18.72;
+            newh1 = $(window).width() * 0.05;
+            newh3 = $(window).width() * 0.04;
+            if (newh1 < h1 || newh3 < h3) {
+                h1 = newh1;
+                h3 = newh3;
+            }
+            $("h1").css("font-size", h1 + 'px');
+            $("h3").css("font-size", h3 + 'px');
+
+            if (parseInt($(window).width()) < 800) {
+                $(".card").css("width", "90%");
+            }
+            else {
+                $(".card").css("width", "40%");
+            }
+        });
+
     </script>
 }
 

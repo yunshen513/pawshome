@@ -10,128 +10,107 @@ using PawsHome.Models;
 
 namespace PawsHome.Controllers
 {
-    public class DogsController : Controller
+    public class ActivitiesController : Controller
     {
         private NewModel db = new NewModel();
 
-        //budget
-        public ActionResult Budget(int? id)
-        {
-            ViewBag.Breeds = new SelectList(db.Dogs, "id", "breed");
-            if (id == null)
-            {
-                ViewBag.Selected = -1;
-            }
-            else {
-                ViewBag.Selected = id;
-            }
-            return View(db.Dogs.ToList());
-        }
-
-        //report
-        public ActionResult Report()
-        {
-            ViewBag.Breeds = new SelectList(db.Dogs,"id","breed");
-            return View(db.Dogs.ToList());
-        }
-
-        // GET: Dogs
+        // GET: Activities
         public ActionResult Index()
         {
-            return View(db.Dogs.ToList());
+            return View(db.Activities.ToList());
         }
 
-        // GET: Dogs/Details/5
+        // GET: Activities/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dog dog = db.Dogs.Find(id);
-            if (dog == null)
+            Activity activity = db.Activities.Find(id);
+            if (activity == null)
             {
                 return HttpNotFound();
             }
-            return View(dog);
+            return View(activity);
         }
 
-        // GET: Dogs/Create
+        // GET: Activities/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Dogs/Create
+        // POST: Activities/Create
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,breed,url,weight,height,expectancy,origin,exercise,cost,size,temperament")] Dog dog)
+        public ActionResult Create([Bind(Include = "id,name,description,url,video,atype")] Activity activity)
         {
             if (ModelState.IsValid)
             {
-                db.Dogs.Add(dog);
+                db.Activities.Add(activity);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(dog);
+            return View(activity);
         }
 
-        // GET: Dogs/Edit/5
+        // GET: Activities/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dog dog = db.Dogs.Find(id);
-            if (dog == null)
+            Activity activity = db.Activities.Find(id);
+            if (activity == null)
             {
                 return HttpNotFound();
             }
-            return View(dog);
+            return View(activity);
         }
 
-        // POST: Dogs/Edit/5
+        // POST: Activities/Edit/5
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,breed,url,weight,height,expectancy,origin,exercise,cost,size,temperament")] Dog dog)
+        public ActionResult Edit([Bind(Include = "id,name,description,url,video,atype")] Activity activity)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dog).State = EntityState.Modified;
+                db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(dog);
+            return View(activity);
         }
 
-        // GET: Dogs/Delete/5
+        // GET: Activities/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dog dog = db.Dogs.Find(id);
-            if (dog == null)
+            Activity activity = db.Activities.Find(id);
+            if (activity == null)
             {
                 return HttpNotFound();
             }
-            return View(dog);
+            return View(activity);
         }
 
-        // POST: Dogs/Delete/5
+        // POST: Activities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Dog dog = db.Dogs.Find(id);
-            db.Dogs.Remove(dog);
+            Activity activity = db.Activities.Find(id);
+            db.Activities.Remove(activity);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

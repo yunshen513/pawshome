@@ -29,52 +29,8 @@
     }
 </style>
 <div class="container body-content">
-    <h1>Get Started</h1>
-    <h2>Select a breed to see how much it might cost</h2>
-    <div class="row">
-        <div class="col-md-6" style="text-align:right">
-            <img src="https://i.loli.net/2019/08/27/Wa7dbYoAyuX1PZk.png" style="height:100%" />
-        </div>
-        <div class="col-md-6">
-            <h3>@Html.DropDownList("Breeds", (IEnumerable<SelectListItem>)ViewBag.Breeds, "----Select----", new { @id = "drop" })</h3>
-            <img id="t5" />
-            <h4>Estimated Annual Cost</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Activity</th>
-                        <th>Cost (AUD)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Dog Food</td>
-                        <td id="t0"></td>
-                    </tr>
-                    <tr>
-                        <td>Dog Health</td>
-                        <td id="t1"></td>
-                    </tr>
-                    <tr>
-                        <td>Dog License</td>
-                        <td id="t2"></td>
-                    </tr>
-                    <tr>
-                        <td>Miscellaneous</td>
-                        <td id="t3"></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight:800;font-size:larger">Total</td>
-                        <td id="t4" style="font-weight:800;font-size:larger"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr />
-            <h4>Time Playing With Dog</h4>
-            <div id="t6" style="font-weight:800;font-size:larger"></div>
-        </div>
-    </div>
-    <hr />
+    <h1>Guess You Like</h1>
+    <hr/>
     <h2>If you have no idea about which breed might suit you</h2>
     <div class="row">
         <div class="col-md-6">
@@ -114,9 +70,7 @@
                 <input type="radio" class="budget" name="budget" value=1500 /><span>Less than 1500 AUD</span>
             </div>
             <hr />
-            <button class="button button-3d button-primary button-rounded" id="go">
-                Go
-            </button>
+            <button class="button button-3d button-primary button-rounded" id="go">Submit</button>
             <hr />
         </div>
     </div>
@@ -131,41 +85,11 @@
     <script type="text/javascript">
      //display estimated cost
         $(document).ready(function () {
-
-            //listen dropdown list change
-            $("#drop").change(function (evt) {
-                if ($("#drop").val() != 0) {
-                @foreach (var item in Model)
-                {<text>
-
-                    //display cost
-                    if ($("#drop").val() == @item.id) {
-                        var annual = parseInt(@item.cost * 12);
-                        document.getElementById("t0").innerHTML = parseInt(annual * 0.4);
-                        document.getElementById("t1").innerHTML = parseInt(annual * 0.28);
-                        document.getElementById("t2").innerHTML = 180;
-                        document.getElementById("t3").innerHTML = parseInt(annual * 0.3);
-                        document.getElementById("t4").innerHTML =
-                            parseInt(annual * 0.4) + parseInt(annual * 0.28) + 180 + parseInt(annual * 0.3);
-                        document.getElementById("t5").src = "@item.url";
-                        document.getElementById("t6").innerHTML = "@item.exercise minutes per day";
-                    }
-                </text>}
-                }
-
-                //if nothing selected, erase info
-                else {
-                    document.getElementById("picture").src = "";
-                    for (var i = 0; i < 7; i++) {
-                        document.getElementById("t" + i).innerHTML = "";
-                    }
-                }
-            });
-
             //recommend
             $("#go").click(function (evt) {
                 var breedList = [];
                 var urlList = [];
+                var idList = [];
                 document.getElementById("recommend").innerHTML = "";
                 document.getElementById("message").innerHTML = "";
                 document.getElementById("r3").innerHTML = ""; 
@@ -186,6 +110,7 @@
                     $(".temper:checked").val() == "@item.temperament" ) {
                     breedList.push("@item.breed");
                     urlList.push("@item.url");
+                    idList.push(@item.id);
                 }
                 </text>}
 
@@ -204,9 +129,9 @@
                     for (var i = 0; i < breedList.length && i < 3; i++) {
                         document.getElementById("recommend").innerHTML += "<div id=\"r" + i + "\" class=\"col-md-" + col + "\"></div>";
                         document.getElementById("r" + i).innerHTML = "<p>" + breedList[i] + "</p>"
-                            + "<img src=" + urlList[i] + " />";
+                            + "<a href=/Dogs/Details/" + idList[i] + ">"+"<img src=" + urlList[i] + " /></a>";
                     }
-                    document.getElementById("r3").innerHTML = "<button class=\"button button-3d button-primary button-rounded\" id=close>OK</button>";
+                    document.getElementById("r3").innerHTML = "<button class=\"button button-3d button-primary button-rounded\" id=close>Retry</button>";
 
                     //add close button
                     $("#close").click(function (evt) {
@@ -219,7 +144,7 @@
                 //guide to all breeds if no dog matches
                 else {
                     document.getElementById("message").innerHTML =
-                        "<a class=\"button button-glow button-border button-primary\" href=/Dogs/Index>No breed matches, click here to see more breeds</a>"
+                        "<a class=\"button button-glow button-border button-primary\" style=\"height:100%\" href=/Dogs/Index>Sorry that no breed matches, click here to see more</a>"
                 }
 
                 document.getElementById("b0").click();

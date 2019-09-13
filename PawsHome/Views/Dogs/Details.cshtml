@@ -4,96 +4,145 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    h3 {
+        color: brown;
+        font-style: italic;
+        font-weight: 700;
+        padding: 10px;
+    }
 
-<h2>Details</h2>
+    .icon {
+        width: 50px;
+        height: 50px;
+    }
 
-<div>
-    <h4>Dog</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.breed)
-        </dt>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        padding: 20px;
+        margin: 50px
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.breed)
-        </dd>
+    .info {
+        font-size: large;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.url)
-        </dt>
+</style>
+<a style="float:left;font-size:medium" href="/Dogs/Index">&laquo; Back to list </a>
+<div class="container body-content">
+    <div style="text-align:center">
+        <img id="pic" src="@Model.url" style="width:60%">
+        <h3>@Model.breed</h3>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.url)
-        </dd>
+    <div class="card">
+        <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279281.svg">Breed Overview</h3>
+        <hr />
+        <div class="info">@Model.overview</div>
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td style="color:brown;font-weight:700">Size</td>
+                    <td>
+                        @{ switch (Model.size)
+                            {
+                                case "5":<p>Giant</p>break;
+                                case "4":<p>Large</p>break;
+                                case "3":<p>Medium</p>break;
+                                case "2":<p>Small</p>break;
+                                case "1":<p>Toy</p>break;
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:brown;font-weight:700">Temperament</td>
+                    <td>@Model.temperament</td>
+                </tr>
+                <tr>
+                    <td style="color:brown;font-weight:700">Height(cm)</td>
+                    <td>@Model.height</td>
+                </tr>
+                <tr>
+                    <td style="color:brown;font-weight:700">Weight(kg)</td>
+                    <td>@Model.weight</td>
+                </tr>
+                <tr>
+                    <td style="color:brown;font-weight:700">Expectancy(year)</td>
+                    <td>@Model.expectancy</td>
+                </tr>
+                <tr>
+                    <td style="color:brown;font-weight:700">Exercise(minutes per day)</td>
+                    <td>@Model.exercise</td>
+                </tr>
+            </tbody>
+        </table>
+        <a class="button button-3d button-action" href="/Dogs/Budget/@Model.id">Check its cost</a>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.weight)
-        </dt>
+    <div class="card">
+        <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279288.svg">Origin</h3>
+        <hr />
+        <div class="info">@Model.origin</div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.weight)
-        </dd>
+    <div class="card">
+        <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279283.svg">Feeding</h3>
+        <hr />
+        <div class="info">@Model.feeding</div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.height)
-        </dt>
+    <div class="card">
+        <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279292.svg" `>Health</h3>
+        <hr />
+        <div class="info">@Model.health</div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.height)
-        </dd>
+    <div class="card">
+        <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279278.svg">Grooming</h3>
+        <hr />
+        <div class="info">@Model.grooming</div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.expectancy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.expectancy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.origin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.origin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.exercise)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.exercise)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cost)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cost)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.size)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.size)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.temperament)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.temperament)
-        </dd>
-
-    </dl>
+    <div class="card">
+        <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279280.svg">Fun Fact</h3>
+        <hr />
+        <div class="info">@Model.fun</div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@{
+    int newid = Model.id + 1;
+    int preid = Model.id - 1;
+}
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        @if (preid != 0)
+        {
+        <a style="font-size:medium" href="/Dogs/Details/@preid">&lsaquo; Previous Breed</a>
+        }
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        @if (newid < 16)
+        {
+        <a style="float:right;font-size:medium" href="/Dogs/Details/@newid">Next Breed &rsaquo;</a>
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function resizePic() {
+            var p = document.getElementById("pic");
+            var img_w = p.clientWidth;
+            p.style.height = parseInt(img_w * 0.65) + "px";
+        }
+
+        $(document).ready(function () {
+            resizePic();
+            $(window).resize(function (evt) {
+                resizePic()
+            });
+        });
+    </script>
+}

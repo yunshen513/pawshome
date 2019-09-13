@@ -1,0 +1,316 @@
+﻿@model IEnumerable<PawsHome.Models.Dog>
+
+@{
+    ViewBag.Title = "Budget";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h2 {
+        text-align: center;
+        margin: 50px 50px 50px 50px;
+    }
+
+    h4 {
+        text-align: center;
+        margin: 20px 20px 20px 20px;
+    }
+
+    p {
+        font-size: x-large;
+        font-style: italic;
+    }
+
+    .img-rounded {
+        width: 100%;
+        height: 88%;
+    }
+
+    .costype {
+        width: 30%;
+        height: 30%;
+    }
+
+    .banner {
+        text-align: center;
+    }
+</style>
+
+<div class="container body-content">
+    <h1>Ownership Budget</h1>
+    <hr />
+    <h2>Select a breed to see how much it might cost</h2>
+    <div class="row">
+        <div id="tag1" class="col-md-4 col-sm-6">
+            <div>@Html.DropDownList("Breeds", (IEnumerable<SelectListItem>)ViewBag.Breeds, "----Select----", new { @id = "drop" })</div>
+            <img class="img-rounded" id="dogpic" />
+        </div>
+        <div id="tag2" class="col-md-4 col-sm-6">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#annual" role="tab" data-toggle="tab">Annual Cost</a></li>
+                <li role="presentation"><a href="#onetime" role="tab" data-toggle="tab">One-time Cost</a></li>
+                <li role="presentation"><a href="#time" role="tab" data-toggle="tab">Lifetime Cost</a></li>
+            </ul>
+
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="annual">
+                    <table class="table table-condensed  table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Cost (AUD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Food</td>
+                                <td id="a0"></td>
+                            </tr>
+                            <tr>
+                                <td>Vet Care</td>
+                                <td id="a1"></td>
+                            </tr>
+                            <tr>
+                                <td>Health Products</td>
+                                <td id="a2"></td>
+                            </tr>
+                            <tr>
+                                <td>License</td>
+                                <td id="a3"></td>
+                            </tr>
+                            <tr>
+                                <td>Grooming</td>
+                                <td id="a4"></td>
+                            </tr>
+                            <tr>
+                                <td>Accessories</td>
+                                <td id="a5"></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th>Total</th>
+                                <th id="a6"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+
+                <div role="tabpanel" class="tab-pane" id="onetime">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Cost (AUD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Training</td>
+                                <td id="o0"></td>
+                            </tr>
+                            <tr>
+                                <td>Bedding</td>
+                                <td id="o1"></td>
+                            </tr>
+                            <tr>
+                                <td>Vaccination (C5)</td>
+                                <td id="o2"></td>
+                            </tr>
+                            <tr>
+                                <td>Check-up</td>
+                                <td id="o3"></td>
+                            </tr>
+                            <tr>
+                                <td>Leash & Collar</td>
+                                <td id="o4"></td>
+                            </tr>
+                            <tr>
+                                <td>Desexing</td>
+                                <td id="o5"></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th>Total</th>
+                                <th id="o6"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+
+                <div role="tabpanel" class="tab-pane" id="time">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Total</th>
+                                <th id="lt"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="col-md-4" id="tag3">
+        </div>
+
+    </div>
+</div>
+
+<div class="row" style="background-color:lavender">
+    <h2>Where does owners' money go?</h2>
+    <div class="banner col-sm-6">
+        <img class="costype" src="https://image.flaticon.com/icons/svg/138/138279.svg" />
+        <p>One-time Cost</p>
+    </div>
+    <div class="banner col-sm-6">
+        <img class="costype" src="https://image.flaticon.com/icons/svg/138/138349.svg" />
+        <p>Ongoing Cost</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="banner col-sm-6">
+        <h2>One-time Cost</h2>
+        <p>When you just own a dog, you need to spend money on check-up and vaccination. Besides, you need to buy a dog house for your dog. Leash and collar are also necessary. You can decide whether desex your dog. which would be a cost as well</p>
+    </div>
+    <div class="banner col-sm-6">
+        <img class="costype" style="margin:10%" src="https://image.flaticon.com/icons/svg/1494/1494339.svg" />
+    </div>
+</div>
+
+<div class="row" style="background-color:lavender">
+    <div class="banner col-sm-6">
+        <img class="costype" style="margin:10%" src="https://image.flaticon.com/icons/svg/1494/1494344.svg" />
+    </div>
+    <div class="banner col-sm-6">
+        <h2>Ongoing Cost</h2>
+        <p>
+            When you get used to be a dog owner, you will find these aspects keep costing you. Dog food, grooming and health examines are regular expense. License for your dog also needs to be renewed each annually. Moreover, when accessories of your dog get broken, you need to buy new ones.
+        </p>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+     //display estimated cost
+        $(document).ready(function () {
+            //check access approach
+            if (@ViewBag.Selected != -1) {
+                showBudget(@ViewBag.Selected);
+            }
+
+            //listen dropdown list change
+            $("#drop").change(function (evt) {
+                showBudget($("#drop").val());
+            });
+
+            resizeTag()
+            $(window).resize(function (evt) {
+                resizeTag()
+            });
+        });
+
+        function resizeTag() {
+            var t2 = document.getElementById("tag2");
+            var t1 = document.getElementById("tag1");
+            var height = t2.clientHeight;
+            t1.style.height = parseInt(height) + "px";
+        }
+
+        function showBudget(id) {
+            if ( id != 0) {
+                @foreach (var item in Model)
+                {<text>
+                if (id == @item.id) {
+
+                    //set dog picture
+                    document.getElementById("dogpic").src = "@item.url";
+
+                    //set annual cost
+                    var atemp = parseInt(@item.cost * 12);
+                    document.getElementById("a0").innerHTML = parseInt(atemp * 0.38);
+                    document.getElementById("a1").innerHTML = parseInt(atemp * 0.22);
+                    document.getElementById("a2").innerHTML = parseInt(atemp * 0.18);
+                    document.getElementById("a3").innerHTML = 180;
+                    document.getElementById("a4").innerHTML = parseInt(atemp * 0.12);
+                    document.getElementById("a5").innerHTML = parseInt(atemp * 0.08);
+                    var annual = parseInt(atemp * 0.4) + parseInt(atemp * 0.28) + 180 + parseInt(atemp * 0.3);
+                    document.getElementById("a6").innerHTML = annual;
+
+
+                    //set one time cost
+                    var otemp = @item.onetime;
+                    document.getElementById("o0").innerHTML = parseInt(otemp * 0.15);
+                    document.getElementById("o1").innerHTML = parseInt(otemp * 0.1);
+                    document.getElementById("o2").innerHTML = 130;
+                    document.getElementById("o3").innerHTML = parseInt(otemp * 0.3);
+                    document.getElementById("o4").innerHTML = parseInt(otemp * 0.05);
+                    document.getElementById("o5").innerHTML = parseInt(otemp * 0.4);
+                    var onetime = 130 + otemp;
+                    document.getElementById("o6").innerHTML = onetime;
+
+                    //set lifetime cost
+                    document.getElementById("lt").innerHTML = parseInt(annual * @item.life + onetime) + " AUD";
+
+                    //set chart
+                    Chart.defaults.global.legend.display = false;
+                    document.getElementById("tag3").innerHTML = "<canvas id=myChart width=350 height=300></canvas>";
+                    new Chart(document.getElementById("myChart"),
+                        {
+                            "type": "bar",
+                            "data":
+                            {
+                                "labels": ["Annaul Cost", "One-time Cost"],
+                                "datasets": [
+                                    {
+                                        "label": null,
+                                        "data": [annual, onetime],
+                                        "fill": false,
+                                        "backgroundColor": ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)"],
+                                        "borderColor": ["rgb(255, 99, 132)", "rgb(255, 159, 64)"],
+                                        "borderWidth": 1
+                                    }]
+                            },
+                            "options":
+                            {
+                                "scales":
+                                {
+                                    "yAxes": [
+                                        {
+                                            "ticks": {
+                                                "beginAtZero": true, min: 0, max: 3500, stepSize: 500
+                                            }
+                                        }]
+                                }
+                            }
+                        });
+
+
+                }
+                </text>}
+            }
+
+            //if nothing selected, erase info
+            else {
+                document.getElementById("picture").src = "";
+                for (var i = 0; i < 7; i++) {
+                    document.getElementById("a" + i).innerHTML = "";
+                }
+
+                for (var i = 0; i < 7; i++) {
+                    document.getElementById("o" + i).innerHTML = "";
+                }
+
+                document.getElementById("lt").innerHTML = "";
+
+                document.getElementById("cs").innerHTML = "";
+            }
+        }
+    </script>
+}

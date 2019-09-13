@@ -32,5 +32,19 @@ namespace PawsHome.Models
         public string size { get; set; }
 
         public string temperament { get; set; }
+
+        public string overview { get; set; }
+
+        public string grooming { get; set; }
+
+        public string feeding { get; set; }
+
+        public string health { get; set; }
+
+        public string fun { get; set; }
+
+        public int? onetime { get; set; }
+
+        public int? life { get; set; }
     }
 }
