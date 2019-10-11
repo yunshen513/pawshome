@@ -26,15 +26,11 @@ namespace PawsHome.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Activity>()
-                .Property(e => e.url)
+                .Property(e => e.picture)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Activity>()
                 .Property(e => e.video)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Activity>()
-                .Property(e => e.atype)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Dog>()

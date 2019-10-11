@@ -1,44 +1,42 @@
 ﻿@model IEnumerable<PawsHome.Models.Dog>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
     .imgcard {
-        padding:20px;
-        text-align:center;
-        position:relative;
-    }
-
-    .img-circle:hover {
-        box-shadow:0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        padding: 20px;
+        text-align: center;
+        position: relative;
     }
 
     .tips {
-        position:absolute;
-        left:50%;
-        display:none;
+        position: absolute;
+        left: 30%;
+        bottom: 2%;
+        width: 40%;
     }
 
-    .tips p {
-        background-color:#8a957a;
-        padding:6px;
-        color:#fff;
-        border-radius:4px;
-    }
+   .tips p {
+       background-color: #8a957a;
+       padding: 6px;
+       color: #fff;
+       border-radius: 4px;
+   }
 
     #back {
-        position:fixed;right:10px;bottom:40px;
-        cursor:pointer;
-        display:none;
+        position: fixed;
+        right: 10px;
+        bottom: 40px;
+        cursor: pointer;
+        display: none;
     }
-
-
 </style>
+<a name="top"></a>
 <div class="container body-content">
-    <a name="top"></a>
-    <h1>Breeds List</h1>
+
+    <h1>Breed List</h1>
     <hr />
     @foreach (var item in Model)
     {
@@ -59,7 +57,6 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-
             $(window).scroll(function () {
                 if ($(window).scrollTop() > 300) {
                     $("#back").fadeIn(300);
@@ -78,6 +75,8 @@
                 document.getElementById("back").innerHTML = "<span class=\"glyphicon glyphicon-arrow-up\"></span>";
             });
 
+            /*
+
             $(".img-circle").mouseover(function (evt) {
                 var id = $(this).attr("id");
                 $("#t" + id).show();
@@ -86,6 +85,7 @@
             $(".img-circle").mouseout(function (evt) {
                 $(".tips").hide();
             });
+            */
 
         });
     </script>

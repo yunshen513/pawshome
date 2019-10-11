@@ -16,10 +16,16 @@
 
         public string description { get; set; }
 
-        public string url { get; set; }
+        public string picture { get; set; }
 
         public string video { get; set; }
 
-        public string atype { get; set; }
+        public int atype { get; set; }
+
+        public int toy { get; set; }
+
+        public int status { get; set; }
+
+        public int duration { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 <style>
     .car_pic {
@@ -7,8 +7,9 @@
     }
 
     .carousel-caption {
-        top: 18%;
+        top: 25%;
         bottom: auto;
+        padding:0
     }
 
     .card {
@@ -35,33 +36,33 @@
 
         <div class="item active">
             <div class="carousel-caption">
-                <h1>Ready to have a dog ?</h1>
-                <h3>You need to know these...</h3>
-                <a class="button button-3d button-primary button-rounded" href="/Dogs/Report">Get Started</a>
+                <h1>How much a dog would cost</h1>
+                <h3>detailed cost of each breed ...</h3>
+                <a class="button button-primary-flat" href="/Dogs/Budget">Estimate Budget</a>
             </div>
-            <img class="car_pic" src="https://cdn.pixabay.com/photo/2017/04/25/23/39/dog-2261160_960_720.jpg" />
+            <img class="car_pic" src="https://i.loli.net/2019/10/06/UhS5FInJEzyNAuM.jpg" />
         </div>
 
         <div class="item">
             <div class="carousel-caption">
-                <h1>Ready to have a dog ?</h1>
-                <h3>You need to know these...</h3>
-                <a class="button button-3d button-primary button-rounded" href="/Dogs/Report">Get Started</a>
+                <h1>Where are nearby services</h1>
+                <h3>parks, vets and pet stores ...</h3>
+                <a class="button button-primary-flat" href="/Activities/Index">Search Service</a>
             </div>
-            <img class="car_pic" src="https://cdn.pixabay.com/photo/2015/09/02/15/01/puppy-919223_960_720.jpg" />
+            <img class="car_pic" src="https://i.loli.net/2019/10/06/OYIM276VKfFytp3.jpg" />
         </div>
 
         <div class="item">
             <div class="carousel-caption">
-                <h1>Ready to have a dog ?</h1>
-                <h3>You need to know these...</h3>
-                <a class="button button-3d button-primary button-rounded" href="/Dogs/Report">Get Started</a>
+                <h1>What can I do with my dog</h1>
+                <h3>activities that suit you ...</h3>
+                <a class="button button-primary-flat" href="/Home/Map">Find Activity</a>
             </div>
-            <img class="car_pic" src="https://cdn.pixabay.com/photo/2015/05/30/19/53/playing-puppies-790638_960_720.jpg" />
+            <img class="car_pic" src="https://i.loli.net/2019/10/06/2hbZt5dVIrWps4K.jpg" />
         </div>
     </div>
 
-    <a class="carousel-control left" href="#home" data-slide="prev">
+    <a class="carousel-control left" href="#home" data-slide="prev" onclick="wys()">
         <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
     <a class="carousel-control right" href="#home" data-slide="next">
@@ -69,27 +70,38 @@
     </a>
 </div>
 
-
 <div class="card col-md-6 col-sm-6">
-    <h2>Popular breeds</h2>
-    <h4>Do you know which breeds are popular in Victoria?</h4>
-    <img class="title_pic" src="https://cdn.pixabay.com/photo/2016/06/13/13/20/animals-1454214_960_720.png" />
-    <p style="margin:20px"><a class="button button-3d button-primary button-rounded" href="/Home/Chart">Learn More</a></p>
+    <h2>Breeds Selector</h2>
+    <h4>Recommend breeds based on your preference</h4>
+    <img class="title_pic" src="https://i.loli.net/2019/10/05/RV3ib4wYTWc2K8j.jpg" />
+    <p style="margin:20px"><a class="button button-primary-flat" href="/Dogs/Report">Learn More</a></p>
 </div>
 
 <div class="card col-md-6 col-sm-6">
-    <h2>Ownership budget</h2>
-    <h4>Do you know how much a dog would cost in Victoria?</h4>
-    <img class="title_pic" src="https://i.loli.net/2019/09/08/vdOXryFB7mt3qnE.png" />
-    <p style="margin:20px"><a class="button button-3d button-primary button-rounded" href="/Dogs/Budget">Learn More</a></p>
+    <h2>Breeds List</h2>
+    <h4>Explore all the popular breeds in Victoria</h4>
+    <img class="title_pic" src="https://i.loli.net/2019/10/05/xaV8jseNz5Sm4HK.png" />
+    <p style="margin:20px"><a class="button button-primary-flat" href="/Dogs/Index">Learn More</a></p>
 </div>
 
 
 @section Scripts{
     <script>
-
         var once_per_session = 1
         var bool
+
+        /*
+        if (once_per_session === 0)
+            passwordProtect()
+        else
+            loadornot()
+        */
+
+        //resize carousel
+        resizeHome();
+        $(window).resize(function (evt) {
+            resizeHome();
+        });
 
         function get_cookie(Name) {
             var search = Name + "="
@@ -109,10 +121,11 @@
             return returnvalue;
         }
 
+        //password protection
         function passwordProtect() {
             var password;
             var pass1 = "123";
-            password = prompt('Enter password to view page', ' ');
+            password = prompt('Enter password to view page', '');
             if (password === pass1) {
                 window.location = "/Home/Index";
                 return true;
@@ -132,13 +145,7 @@
             }
         }
 
-        if (once_per_session === 0)
-            passwordProtect()
-        else
-            loadornot()
-
-        //resize carousel
-        $(window).resize(function (evt) {
+        function resizeHome() {
             var h1 = 32;
             var h3 = 18.72;
             newh1 = $(window).width() * 0.05;
@@ -156,8 +163,21 @@
             else {
                 $(".card").css("width", "40%");
             }
-        });
 
+            if (parseInt($(window).width()) < 800) {
+                if (parseInt($(window).width()) < 400) {
+                    $("h3").css("display", "none");
+                    $(" .carousel-caption").css("top", "0");
+                } else {
+                    $("h3").css("display", "none");
+                    $(" .carousel-caption").css("top", "20%");
+                }
+            }
+            else {
+                $("h3").css("display", "");
+                $(" .carousel-caption").css("top", "25%");
+            }
+        }
     </script>
 }
 

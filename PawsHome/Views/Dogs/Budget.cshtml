@@ -7,46 +7,66 @@
 <style>
     h2 {
         text-align: center;
-        margin: 50px 50px 50px 50px;
+        margin-bottom:60px;
+        margin-top:60px;
     }
 
-    h4 {
+    h3 {
         text-align: center;
-        margin: 20px 20px 20px 20px;
     }
 
     p {
-        font-size: x-large;
+        font-size: large;
         font-style: italic;
     }
 
     .img-rounded {
         width: 100%;
-        height: 88%;
+        height: 82%;
+        max-width:350px;
     }
 
     .costype {
-        width: 30%;
-        height: 30%;
+        width: 20%;
+        height: 20%;
     }
 
     .banner {
         text-align: center;
     }
+
+    input, select, textarea {
+        width:100%;
+        max-width:350px;
+        height:30px;
+    }
+
+    .tab-content {
+        padding:10px;   
+    }
+
+    #back {
+        position: fixed;
+        right: 10px;
+        bottom: 40px;
+        cursor: pointer;
+        display: none;
+    }
 </style>
 
+<a name="top"></a>
 <div class="container body-content">
     <h1>Ownership Budget</h1>
     <hr />
     <h2>Select a breed to see how much it might cost</h2>
-    <div class="row">
-        <div id="tag1" class="col-md-4 col-sm-6">
+    <div class="row" style="margin-bottom:60px">
+        <div id="part1" class="col-md-4 col-sm-6">
             <div>@Html.DropDownList("Breeds", (IEnumerable<SelectListItem>)ViewBag.Breeds, "----Select----", new { @id = "drop" })</div>
             <img class="img-rounded" id="dogpic" />
         </div>
-        <div id="tag2" class="col-md-4 col-sm-6">
+        <div id="part2" class="col-md-4 col-sm-6">
 
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-pills" role="tablist">
                 <li role="presentation" class="active"><a href="#annual" role="tab" data-toggle="tab">Annual Cost</a></li>
                 <li role="presentation"><a href="#onetime" role="tab" data-toggle="tab">One-time Cost</a></li>
                 <li role="presentation"><a href="#time" role="tab" data-toggle="tab">Lifetime Cost</a></li>
@@ -55,7 +75,7 @@
 
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="annual">
-                    <table class="table table-condensed  table-bordered">
+                    <table class="table table-condensed">
                         <thead>
                             <tr>
                                 <th>Activity</th>
@@ -143,7 +163,7 @@
 
 
                 <div role="tabpanel" class="tab-pane" id="time">
-                    <table class="table table-hover">
+                    <table class="table table-condensed">
                         <thead>
                             <tr>
                                 <th>Total</th>
@@ -156,14 +176,14 @@
             </div>
         </div>
         
-        <div class="col-md-4" id="tag3">
+        <div class="col-md-4" id="part3">
         </div>
 
     </div>
 </div>
 
 <div class="row" style="background-color:lavender">
-    <h2>Where does owners' money go?</h2>
+    <h3>Where does owners' money go?</h3>
     <div class="banner col-sm-6">
         <img class="costype" src="https://image.flaticon.com/icons/svg/138/138279.svg" />
         <p>One-time Cost</p>
@@ -176,11 +196,15 @@
 
 <div class="row">
     <div class="banner col-sm-6">
-        <h2>One-time Cost</h2>
-        <p>When you just own a dog, you need to spend money on check-up and vaccination. Besides, you need to buy a dog house for your dog. Leash and collar are also necessary. You can decide whether desex your dog. which would be a cost as well</p>
+        <h3>One-time Cost</h3>
+        <p style="text-align: justify;padding:5%">
+            Owning dogs can be expensive.. They are many costs involved. Up front cost is one among them, where you
+            have to spend money to own a dog, with it comes costs of vaccination, micro chipping, desexing etc.
+            Besides that you will also need to buy accessories for making the dog comfortable at home.
+        </p>
     </div>
     <div class="banner col-sm-6">
-        <img class="costype" style="margin:10%" src="https://image.flaticon.com/icons/svg/1494/1494339.svg" />
+        <img class="costype" style="margin:10%" src="https://image.flaticon.com/icons/svg/1494/1494372.svg" />
     </div>
 </div>
 
@@ -189,20 +213,27 @@
         <img class="costype" style="margin:10%" src="https://image.flaticon.com/icons/svg/1494/1494344.svg" />
     </div>
     <div class="banner col-sm-6">
-        <h2>Ongoing Cost</h2>
-        <p>
-            When you get used to be a dog owner, you will find these aspects keep costing you. Dog food, grooming and health examines are regular expense. License for your dog also needs to be renewed each annually. Moreover, when accessories of your dog get broken, you need to buy new ones.
+        <h3>Ongoing Cost</h3>
+        <p style="text-align: justify; padding:5%">
+            Apart from one-time cost you also need to be prepared for on-going costs associated with food, vet bills,
+            training, toys etc. The cost of pet ownership depends on the breed you choose and remember that pets
+            are expensive addition to the family.
         </p>
     </div>
 </div>
+
+<a id="back" class="button button-glow button-circle button-primary" href="#top" style="float:right">
+    <span class="glyphicon glyphicon-arrow-up"></span>
+</a>
 
 @section Scripts{
     <script type="text/javascript">
      //display estimated cost
         $(document).ready(function () {
             //check access approach
-            if (@ViewBag.Selected != -1) {
-                showBudget(@ViewBag.Selected);
+            if (@ViewData["selected"] != -1) {
+                document.getElementById("drop").value = @ViewData["selected"];
+                showBudget($("#drop").val());
             }
 
             //listen dropdown list change
@@ -210,21 +241,40 @@
                 showBudget($("#drop").val());
             });
 
-            resizeTag()
+            resizePart()
             $(window).resize(function (evt) {
-                resizeTag()
+                resizePart()
+            });
+
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > 500) {
+                    $("#back").fadeIn(300);
+                }
+                else {
+                    $("#back").fadeOut(200);
+                }
+
+            });
+
+            $("#back").mouseover(function (evt) {
+                document.getElementById("back").innerHTML = "top";
+            });
+
+            $("#back").mouseout(function (evt) {
+                document.getElementById("back").innerHTML = "<span class=\"glyphicon glyphicon-arrow-up\"></span>";
             });
         });
 
-        function resizeTag() {
-            var t2 = document.getElementById("tag2");
-            var t1 = document.getElementById("tag1");
-            var height = t2.clientHeight;
-            t1.style.height = parseInt(height) + "px";
+        function resizePart() {
+            var p2 = document.getElementById("part2");
+            var p1 = document.getElementById("part1");
+            var height = p2.clientHeight;
+            if (parseInt(height) > 200)
+                p1.style.height = parseInt(height) + "px";
         }
 
         function showBudget(id) {
-            if ( id != 0) {
+            if (id != 0) {
                 @foreach (var item in Model)
                 {<text>
                 if (id == @item.id) {
@@ -260,7 +310,7 @@
 
                     //set chart
                     Chart.defaults.global.legend.display = false;
-                    document.getElementById("tag3").innerHTML = "<canvas id=myChart width=350 height=300></canvas>";
+                    document.getElementById("part3").innerHTML = "<canvas id=myChart width=350 height=300></canvas>";
                     new Chart(document.getElementById("myChart"),
                         {
                             "type": "bar",
@@ -298,7 +348,8 @@
 
             //if nothing selected, erase info
             else {
-                document.getElementById("picture").src = "";
+                document.getElementById("dogpic").src = "";
+
                 for (var i = 0; i < 7; i++) {
                     document.getElementById("a" + i).innerHTML = "";
                 }
@@ -309,7 +360,7 @@
 
                 document.getElementById("lt").innerHTML = "";
 
-                document.getElementById("cs").innerHTML = "";
+                document.getElementById("part3").innerHTML = "";
             }
         }
     </script>

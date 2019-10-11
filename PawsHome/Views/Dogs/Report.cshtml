@@ -5,21 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
+
     h2 {
         text-align: center;
-        margin: 50px 50px 50px 50px;
         color: brown;
+        margin-bottom: 50px;
     }
 
-    h4 {
-        text-align: center;
-        margin: 20px 20px 20px 20px;
-        color: brown;
+    h3 {
+        margin-bottom: 20px;
     }
 
     p {
         font-weight: bolder;
-        font: x-large;
+        font-size: large;
         font-style: italic;
     }
 
@@ -27,80 +26,276 @@
         width: 300px;
         height: 200px;
     }
+
+    .question {
+        display: none;
+        height: 400px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        padding: 10px 50px 20px 50px;
+    }
+
+
+    .radio {
+        margin-bottom: 12px;
+    }
+
+        .radio label, .checkbox label {
+            padding-left: 0;
+            font-size: large;
+        }
+
+        .radio input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+            .radio input[type="radio"] + .radio-label:before {
+                content: '';
+                background: #f4f4f4;
+                border-radius: 100%;
+                border: 1px solid #b4b4b4;
+                display: inline-block;
+                width: 1.4em;
+                height: 1.4em;
+                position: relative;
+                top: 0em;
+                margin-right: 1em;
+                vertical-align: top;
+                cursor: pointer;
+                text-align: center;
+                -webkit-transition: all 250ms ease;
+                transition: all 250ms ease;
+            }
+
+            .radio input[type="radio"]:checked + .radio-label:before {
+                background-color: #3197EE;
+                box-shadow: inset 0 0 0 4px #f4f4f4;
+            }
+
+            .radio input[type="radio"]:focus + .radio-label:before {
+                outline: none;
+                border-color: #3197EE;
+            }
+
+            .radio input[type="radio"]:disabled + .radio-label:before {
+                box-shadow: inset 0 0 0 4px #f4f4f4;
+                border-color: #b4b4b4;
+                background: #b4b4b4;
+            }
+
+            .radio input[type="radio"] + .radio-label:empty:before {
+                margin-right: 0;
+            }
+
+    .nextBtn {
+        position: absolute;
+        right: 50px;
+        bottom: 30px;
+    }
+
+    #finsih {
+        position: absolute;
+        right: 50px;
+        bottom: 30px;
+    }
+
+    .prevBtn {
+        position: absolute;
+        right: 200px;
+        bottom: 30px;
+    }
+
+    .page {
+        font-size: x-large;
+        position: absolute;
+        left: 50px;
+        bottom: 30px;
+    }
+
+    .q_img {
+        width: 100%;
+    }
 </style>
+
 <div class="container body-content">
-    <h1>Guess You Like</h1>
-    <hr/>
-    <h2>If you have no idea about which breed might suit you</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <img id="person" style="width:300px;height:300px;float:right;"
-                 src="https://cdn.pixabay.com/photo/2016/12/21/08/58/questions-1922476_960_720.jpg">
-        </div>
-        <div class="col-md-6">
-            <p>What is your living conditon?</p>
-            <div id="size-group">
-                <input type="radio" class="size" name="size" value=5 checked /><span>I live in a house</span>
-                <input type="radio" class="size" name="size" value=3 /><span>I live in an apartment</span>
-                <input type="radio" class="size" name="size" value=2 /><span>I live with others</span>
+    <div id="page1">
+        <h1>Breed Selector</h1>
+        <hr />
+        <h2>If you have no idea about which breed might suit you</h2>
+
+        <div class="row">
+            <div class="col-md-5">
+                <img id="person" style="width:400px;height:400px;"
+                     src="https://cdn.pixabay.com/photo/2016/12/21/08/58/questions-1922476_960_720.jpg">
             </div>
-            <hr />
-            <p>What kind of dog do you like?</p>
-            <div id="temper-group">
-                <input type="radio" class="temper" name="temper" value="Friendly" checked /><span>Friendly</span>
-                <input type="radio" class="temper" name="temper" value="Intelligent" /><span>Intelligent</span>
-                <input type="radio" class="temper" name="temper" value="Fearless" /><span>Fearless</span>
-                <input type="radio" class="temper" name="temper" value="Gentle" /><span>Gentle</span>
-                <input type="radio" class="temper" name="temper" value="Loyal" /><span>Loyal</span>
-                <input type="radio" class="temper" name="temper" value="Alert" /><span>Alert</span>
-                <input type="radio" class="temper" name="temper" value="Brave" /><span>Brave</span>
+
+            <div id="q1" class="question col-md-7">
+                <h3>What is your current living conditon ?</h3>
+                <div class="col-md-6 col-sm-6">
+                    <div class="radio">
+                        <input class="size" id="size-1" name="size" type="radio" value=5 checked />
+                        <label for="size-1" class="radio-label">I own a big house</label>
+                    </div>
+                    <div class="radio">
+                        <input class="size" id="size-2" name="size" type="radio" value=3 />
+                        <label for="size-2" class="radio-label">I own an apartment</label>
+                    </div>
+                    <div class="radio">
+                        <input class="size" id="size-3" name="size" type="radio" value=2 />
+                        <label for="size-3" class="radio-label">I only own a room</label>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <img class="q_img hidden-xs" src="https://image.flaticon.com/icons/svg/609/609803.svg" />
+                </div>
+                <button id="1" class="nextBtn button button-primary-flat">Next</button>
+                <div class="page hidden-xs">1 / 4</div>
             </div>
-            <hr />
-            <p>How much time do you want to spend with your dog each day?</p>
-            <div id="exercise-group">
-                <input type="radio" class="time" name="time" value=9999 checked /><span>More than 60 minutes</span>
-                <input type="radio" class="time" name="time" value=60 /><span>30-60 minutes</span>
-                <input type="radio" class="time" name="time" value=30 /><span>Less than 30 minutes</span>
+
+            <div id="q2" class="question col-md-7">
+                <h3>What kind of dog do you like ?</h3>
+                <div class="col-md-6 col-sm-6">
+                    <div class="radio">
+                        <input class="temper" id="temper-1" name="temper" type="radio" value="Friendly" checked />
+                        <label for="temper-1" class="radio-label">Friendly</label>
+                    </div>
+                    <div class="radio">
+                        <input class="temper" id="temper-2" name="temper" type="radio" value="Intelligent" />
+                        <label for="temper-2" class="radio-label">Intelligent</label>
+                    </div>
+                    <div class="radio">
+                        <input class="temper" id="temper-3" name="temper" type="radio" value="Fearless" />
+                        <label for="temper-3" class="radio-label">Fearless</label>
+                    </div>
+                    <div class="radio">
+                        <input class="temper" id="temper-4" name="temper" type="radio" value="Gentle" />
+                        <label for="temper-4" class="radio-label">Gentle</label>
+                    </div>
+                    <div class="radio">
+                        <input class="temper" id="temper-5" name="temper" type="radio" value="Loyal" />
+                        <label for="temper-5" class="radio-label">Loyal</label>
+                    </div>
+                    <div class="radio">
+                        <input class="temper" id="temper-6" name="temper" type="radio" value="Alert" />
+                        <label for="temper-6" class="radio-label">Alert</label>
+                    </div>
+                    <div class="radio">
+                        <input class="temper" id="temper-7" name="temper" type="radio" value="Brave" />
+                        <label for="temper-7" class="radio-label">Brave</label>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <img class="q_img hidden-xs" src="https://image.flaticon.com/icons/svg/1494/1494346.svg" />
+                </div>
+                <button id="2" class="nextBtn button button-primary-flat">Next</button>
+                <button id="2" class="prevBtn button button-caution-flat">Prev</button>
+                <div class="page hidden-xs">2 / 4</div>
             </div>
-            <hr />
-            <p>How much money do you want to spend on your dog each year?</p>
-            <div id="budget-group">
-                <input type="radio" class="budget" name="budget" value=9999 checked /><span>More than 2000 AUD</span>
-                <input type="radio" class="budget" name="budget" value=2000 /><span>1500 - 2000 AUD</span>
-                <input type="radio" class="budget" name="budget" value=1500 /><span>Less than 1500 AUD</span>
+
+            <div id="q3" class="question col-md-7">
+                <h3>How much time do you want to spend with your dog each day ?</h3>
+                <div class="col-md-6 col-sm-6">
+                    <div class="radio">
+                        <input class="time" id="time-1" name="time" type="radio" value=9999 checked />
+                        <label for="time-1" class="radio-label">More than 60 minutes</label>
+                    </div>
+                    <div class="radio">
+                        <input class="time" id="time-2" name="time" type="radio" value=60 />
+                        <label for="time-2" class="radio-label">30 - 60 minutes</label>
+                    </div>
+                    <div class="radio">
+                        <input class="time" id="time-3" name="time" type="radio" value=30 />
+                        <label for="time-3" class="radio-label">Less than 30 minutes</label>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <img class="q_img hidden-xs" src="https://image.flaticon.com/icons/svg/251/251974.svg" />
+                </div>
+                <button id="3" class="nextBtn button button-primary-flat">Next</button>
+                <button id="3" class="prevBtn button button-caution-flat">Prev</button>
+                <div class="page hidden-xs">3 / 4</div>
             </div>
-            <hr />
-            <button class="button button-3d button-primary button-rounded" id="go">Submit</button>
-            <hr />
+
+            <div id="q4" class="question col-md-7">
+                <h3>How much money do you want to spend on your dog each year ?</h3>
+                <div class="col-md-6 col-sm-6">
+                    <div class="radio">
+                        <input class="budget" id="budget-1" name="budget" type="radio" value=9999 checked />
+                        <label for="budget-1" class="radio-label">More than 2000 AUD</label>
+                    </div>
+                    <div class="radio">
+                        <input class="budget" id="budget-2" name="budget" type="radio" value=2000 />
+                        <label for="budget-2" class="radio-label">1500 - 2000 AUD</label>
+                    </div>
+                    <div class="radio">
+                        <input class="budget" id="budget-3" name="budget" type="radio" value=1500 />
+                        <label for="budget-3" class="radio-label">Less than 1500 AUD</label>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <img class="q_img hidden-xs" src="https://image.flaticon.com/icons/svg/639/639365.svg" />
+                </div>
+                <button id="4" class="prevBtn button button-caution-flat">Prev</button>
+                <button id="finsih" class="button button-action-flat">Finish</button>
+                <div class="page hidden-xs">4 / 4</div>
+            </div>
+
         </div>
     </div>
 
-    <div id="message" style="text-align:center;margin:10px;"></div>
-    <div class="row" id="recommend" style="text-align:center"></div>
-    <div id="r3" style="text-align:center;margin:10px"></div>
-
-    <a id="b0" name="bottom" href="#bottom"></a>
+    <div id="page2" style="border:solid; display:none; margin:50px 0 50px 0;" >
+        <h1 style="margin:50px">Selector Report</h1>
+        <hr />
+        <h2>Your choices</h2>
+        <div id="message" style="text-align:center;margin:10px;"></div>
+        <hr>
+        <h2>Guess you might like</h2>
+        <div class="row" id="recommend" style="text-align:center"></div>
+        <div id="r3" style="text-align:center;margin:10px"></div>
+    </div>
 </div>
 @section Scripts{
     <script type="text/javascript">
      //display estimated cost
         $(document).ready(function () {
+
+            $("#q1").show();
+
+            $(".nextBtn").click(function (evt) {
+                var current = parseInt($(this).attr("id"));
+                var next = current + 1;
+                $("#q" + current).hide();
+                $("#q" + next).show();
+            });
+
+            $(".prevBtn").click(function (evt) {
+                var current = parseInt($(this).attr("id"));
+                var prev = current - 1;
+                $("#q" + current).hide();
+                $("#q" + prev).show();
+            });
+
             //recommend
-            $("#go").click(function (evt) {
+            $("#finsih").click(function (evt) {
                 var breedList = [];
                 var urlList = [];
                 var idList = [];
                 document.getElementById("recommend").innerHTML = "";
                 document.getElementById("message").innerHTML = "";
-                document.getElementById("r3").innerHTML = ""; 
+                document.getElementById("r3").innerHTML = "";
 
                 //set info
-                document.getElementById("message").innerHTML += "<h4>According to your choices:</h4>";
-                document.getElementById("message").innerHTML += "<p>" + $(".size:checked + span").text() + "</p>";
-                document.getElementById("message").innerHTML += "<p>I prefer a " + $(".temper:checked + span").text() + " dog</p>";
-                document.getElementById("message").innerHTML += "<p>I can spend " + $(".budget:checked + span").text() + " for my dog each year</p>";
-                document.getElementById("message").innerHTML += "<p>I can spend " + $(".time:checked + span").text() + " with my dog each day</p>";
-                document.getElementById("message").innerHTML += "<h4>Guess you might like</h4>";
+                var size_id = $(".size:checked").attr("id");
+                document.getElementById("message").innerHTML += "<p>" + $('label[for="' + size_id + '"]').text() + "</p>";
+
+                var temper_id = $(".temper:checked").attr("id");
+                document.getElementById("message").innerHTML += "<p>I prefer a " + $('label[for="' + temper_id + '"]').text() + " dog</p>";
+
+                var time_id = $(".time:checked").attr("id");
+                document.getElementById("message").innerHTML += "<p>I can spend " + $('label[for="' + time_id + '"]').text() + " with my dog each day</p>";
+
+                var budget_id = $(".budget:checked").attr("id");
+                document.getElementById("message").innerHTML += "<p>I can spend " + $('label[for="' + budget_id + '"]').text() + " for my dog each year</p>";
 
                 //filter
                 @foreach (var item in Model) {<text>
@@ -128,29 +323,36 @@
                     //add element
                     for (var i = 0; i < breedList.length && i < 3; i++) {
                         document.getElementById("recommend").innerHTML += "<div id=\"r" + i + "\" class=\"col-md-" + col + "\"></div>";
-                        document.getElementById("r" + i).innerHTML = "<p>" + breedList[i] + "</p>"
-                            + "<a href=/Dogs/Details/" + idList[i] + ">"+"<img src=" + urlList[i] + " /></a>";
+                        document.getElementById("r" + i).innerHTML = "<a href=/Dogs/Details/" + idList[i] + ">"
+                            + "<p>" + breedList[i] + "  &raquo;</p></a>" +
+                            "<img src=" + urlList[i] + " />";
                     }
-                    document.getElementById("r3").innerHTML = "<button class=\"button button-3d button-primary button-rounded\" id=close>Retry</button>";
-
-                    //add close button
-                    $("#close").click(function (evt) {
-                        document.getElementById("message").innerHTML = "";
-                        document.getElementById("recommend").innerHTML = "";
-                        document.getElementById("r3").innerHTML = "";
-                    });
+                    document.getElementById("r3").innerHTML = '<button class="button button-primary-flat" id=retry>Retry</button>';
                 }
 
                 //guide to all breeds if no dog matches
                 else {
-                    document.getElementById("message").innerHTML =
-                        "<a class=\"button button-glow button-border button-primary\" style=\"height:100%\" href=/Dogs/Index>Sorry that no breed matches, click here to see more</a>"
+                    document.getElementById("recommend").innerHTML +=
+                        "<a class=\"button button-glow button-border button-primary\" style=\"height:100%\" href=/Dogs/Index>Sorry no breed matches your search criteria, click here to see more</a>";
+                    document.getElementById("r3").innerHTML = '<button class="button button-primary-flat" id=retry>Retry</button>';
                 }
+                $("#page1").hide();
+                $("#page2").show();
 
-                document.getElementById("b0").click();
+                //listen retry button
+                $("#retry").click(function (evt) {
+                    document.getElementById("message").innerHTML = "";
+                    document.getElementById("recommend").innerHTML = "";
+                    document.getElementById("r3").innerHTML = "";
+
+                    $("#page2").hide();
+                    $("#page1").show();
+
+                    $(".question").hide();
+                    $("#q1").show();
+                });
 
             });
-
         });
     </script>
 }

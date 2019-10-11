@@ -1,58 +1,358 @@
-﻿@model IEnumerable<PawsHome.Models.Activity>
+﻿    @model IEnumerable<PawsHome.Models.Activity>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Activity";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    input[type=checkbox] {
+        margin-left:25px
+    }
 
-<h2>Index</h2>
+    input[type=range] {
+        -webkit-appearance: none;
+        width: 100%;
+        max-width:150px;
+        
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.url)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.video)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.atype)
-        </th>
-        <th></th>
-    </tr>
+    input[type=range]:focus {
+        outline: none;
+    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.url)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.video)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.atype)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        max-width:150px;
+        height: 8.4px;
+        cursor: pointer;
+        animation: 0.2s;
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        background: #3071a9;
+        border-radius: 1.3px;
+        border: 0.2px solid #010101;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        border: 1px solid #000000;
+        margin-top:-2px;
+        height: 16px;
+        width: 16px;
+        border-radius: 3px;
+        background: #ffffff;
+        cursor: pointer;
+        -webkit-appearance: none;
+    }
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #367ebd;
+    }
+
+    input[type=range]::-ms-track {
+        width: 100%;
+        max-width:150px;
+        height: 8.4px;
+        cursor: pointer;
+        animation: 0.2s;
+        background: transparent;
+        border-color: transparent;
+        border-width: 16px 0;
+        color: transparent;
+    }
+
+    input[type=range]::-ms-thumb {
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        border: 1px solid #000000;
+        margin-top:2px;
+        height: 16px;
+        width: 16px;
+        border-radius: 3px;
+        background: #ffffff;
+        cursor: pointer;
+    }
+
+    input[type=range]::-ms-fill-lower {
+        background: #2a6495;
+        border: 0.2px solid #010101;
+        border-radius: 2.6px;
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    }
+
+    input[type=range]::-ms-fill-upper {
+        background: #3071a9;
+        border: 0.2px solid #010101;
+        border-radius: 2.6px;
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    }
+
+    input[type=range]:focus::-ms-fill-lower {
+        background: #3071a9;
+    }
+
+    input[type=range]:focus::-ms-fill-upper {
+        background: #367ebd;
+    }
+
+    ul {
+        list-style: none;
+        padding-left:25px;  
+    }
+
+    h4 {
+        padding-left:25px;
+    }
+
+    .img-rounded {
+        width: 300px;
+        height: 200px;
+        margin-top:20px;
+        filter:brightness(60%);
+    }
+
+    .name {
+        pointer-events:none;
+        font-size:x-large;
+        font-weight:600;
+        color:whitesmoke;
+        position:absolute; 
+        z-index:2;
+        top:50%;
+    }
+
+</style>
+<div class="container body-content">
+    <h2>Activities you can do with your dog</h2>
+</div>
+<hr style="margin-bottom:0;border-color:gray"/>
+<div id="row" class="row" style="margin-top:0;">
+    <div id="left" class="col-md-3 col-sm-3 col-xs-5">
+        <div>
+            <div>
+                <h4>Type</h4>
+            </div>
+            <div>
+                <label><input type="checkbox" id="cb1" value="0" />Indoor</label>
+
+                <label><input type="checkbox" id="cb2" value="1">Outdoor</label>
+            </div>
+        </div>
+        <hr />
+
+        <div>
+            <div>
+                <h4>Toy</h4>
+            </div>
+            <div>
+                <label><input type="checkbox" id="cb3" value="0">Needed</label>
+                <label><input type="checkbox" id="cb4" value="1">Not needed </label>
+            </div>
+        </div>
+        <hr />
+
+        <div>
+            <div>
+                <h4>Status</h4>
+            </div>
+            <div>
+                <label><input type="checkbox" id="cb5" value="0">On leash</label>
+                <label><input type="checkbox" id="cb6" value="1">Off leash</label>
+            </div>
+        </div>
+        <hr />
+
+        <h4>Duration</h4>
+        <ul>
+            <li></li>
+            <li><span id="duration"></span> minutes</li>
+            <li><input type="range" min="30" max="120" value="120" id="myRange"></li>
+        </ul>
+        <hr />
+
+        <ul>
+            <li><a class="button button-primary-flat" style="width:100%;max-width:150px" href="/Activities/Index">Reset</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-9 col-sm-9 col-xs-7" id="right">
+        <div id="content">
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var slider = document.getElementById("myRange");
+            var duration = document.getElementById("duration");
+            duration.innerHTML = slider.value;
+            slider.oninput = function () {
+                duration.innerHTML = this .value;
+            }
+            main();
+            hoverDisplay();
+            $("input").change(function (evt) {
+                main();
+                hoverDisplay();
+            });            
+        });
+
+        function hoverDisplay() {
+
+            $(".img-rounded").mouseover(function (evt) {
+                var id = $(this).attr("id");
+                var name = document.getElementById("n" + id);
+                $("#n" + id).hide();
+                document.getElementById(id).style.cssText = "width:300px;height:200px;margin-top:20px;filter:none";
+            });
+
+            $(".img-rounded").mouseout(function (evt) {
+                var id = $(this).attr("id");
+                $("#n" + id).show();
+                document.getElementById(id).style.cssText = "width:300px;height:200px;margin-top:20px;filter:brightness(60%);";
+            });
+        }
+
+        function main() {
+            list1 = filterType();
+            list2 = filterToy(list1);
+            list3 = filterStatus(list2)
+            list4 = filterDuration(list3)
+            displayItem(list4);
+
+        }
+
+        function filterType() {
+            var newList = []
+
+            var typeList = []
+            for (var i = 1; i < 3; i++) {
+                var temp = document.getElementById("cb" + i);
+                if (temp.checked) {
+                    typeList.push(temp.value);
+                }
+            }
+
+            @foreach (var item in Model) {<text>
+            if (typeList.length == 0) {
+                newList.push(new Activity(@item.id, "@item.name", "@item.picture", @item.toy, @item.atype, @item.status, @item.duration));
+            }
+            else {
+                for (var i = 0; i < typeList.length; i++) {
+                    if (typeList[i] == @item.atype) {
+                        newList.push(new Activity(@item.id, "@item.name", "@item.picture", @item.toy, @item.atype, @item.status, @item.duration));
+                    }
+                }
+            }
+            </text>}
+            return newList;
+        }
+
+
+        function filterToy(l) {
+            var newList = []
+
+            var toyList = []
+            for (var i = 3; i < 5; i++) {
+                var temp = document.getElementById("cb" + i);
+                if (temp.checked) {
+                    toyList.push(temp.value);
+                }
+            }
+
+            if (toyList.length == 0) {
+                newList = l;
+            }
+            else {
+                for (var i = 0; i < l.length; i++) {
+                    for (var j = 0; j < toyList.length; j++) {
+                        if (l[i].toy == toyList[j]) {
+                                newList.push(l[i]);
+                            }
+                    }
+
+                }
+
+            }
+            return newList;
+        }
+
+        function filterStatus(l) {
+            var newList = []
+
+            var statusList = []
+            for (var i = 5; i < 7; i++) {
+                var temp = document.getElementById("cb" + i);
+                if (temp.checked) {
+                    statusList.push(temp.value);
+                }
+            }
+
+            if (statusList.length == 0) {
+                newList = l;
+            }
+            else {
+                for (var i = 0; i < l.length; i++) {
+                    for (var j = 0; j < statusList.length; j++) {
+                        if (l[i].status == statusList[j]) {
+                                newList.push(l[i]);
+                            }
+                    }
+
+                }
+
+            }
+            return newList;
+        }
+
+        function filterDuration(l) {
+            var newList = []
+            var slider = document.getElementById("myRange");
+
+            for (var i = 0; i < l.length; i++) {
+                if (l[i].duration <= slider.value) {
+                    newList.push(l[i]);
+                }
+            }
+            return newList;
+        }
+
+        function displayItem(l) {
+            var left = document.getElementById("left")
+            left.style.cssText = "border-right-width:thin;border-right-color:gray;border-right-style:ridge;";
+
+            document.getElementById("content").innerHTML = "";
+            if (l.length > 0) {
+                for (var i = 0; i < l.length; i++) {
+                    document.getElementById("content").innerHTML += "<div class=\"activity col-md-4 col-sm-5 col-xs-7\" style=\"position:relative;\">"
+                        + "<a href=/Activities/Details/" + l[i].id
+                        + "><img id=" + l[i].id
+                        + " class=img-rounded src=" + l[i].picture
+                        + " /></a><div id=n" + l[i].id
+                        + " class=name>" + l[i].name
+                        + "</div></div>";
+
+                    var name = document.getElementById("n" + l[i].id);
+                    var start = parseInt((300 - name.clientWidth) / 2) + 15;
+                    name.style.cssText += "left:" + start + "px";
+                }
+            } else {
+                document.getElementById("content").innerHTML = '<br><div style="text-align:center;"><img src="https://i.loli.net/2019/10/05/EHR84wAh5VMJnlU.png"><h3>Sorry no activity matches your criteria</h3></div>';
+            }
+            var r = document.getElementById("row");
+            left.style.height = r.clientHeight + "px";
+        }
+
+        class Activity {
+            constructor(id, name, picture, toy, atype, status, duration){
+                this.id = id;
+                this.name = name;
+                this.picture = picture;
+                this.toy = toy;
+                this.atype = atype;
+                this.status = status;
+                this.duration = duration;
+            }
+        }
+
+    </script>
 }
-
-</table>

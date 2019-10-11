@@ -18,7 +18,7 @@ namespace PawsHome.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Map()
         {
             return View();
         }

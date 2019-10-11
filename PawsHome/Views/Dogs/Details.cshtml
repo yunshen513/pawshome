@@ -1,7 +1,7 @@
 ﻿@model PawsHome.Models.Dog
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
@@ -10,25 +10,34 @@
         font-style: italic;
         font-weight: 700;
         padding: 10px;
+        margin-bottom: 0;
     }
 
     .icon {
         width: 50px;
         height: 50px;
+        margin-right: 10px;
     }
 
     .card {
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         padding: 20px;
-        margin: 50px
+        margin: 0
     }
 
     .info {
         font-size: large;
     }
 
+    #back {
+        position:fixed;right:30px;bottom:70px;
+        cursor:pointer;
+        display:none;
+    }
 </style>
-<a style="float:left;font-size:medium" href="/Dogs/Index">&laquo; Back to list </a>
+
+<a name="top"></a>
+<div class="container-fluid"><a style="float:left;font-size:medium" href="/Dogs/Index">&laquo; Back to breeds </a></div>
 <div class="container body-content">
     <div style="text-align:center">
         <img id="pic" src="@Model.url" style="width:60%">
@@ -36,7 +45,7 @@
     </div>
 
     <div class="card">
-        <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279281.svg">Breed Overview</h3>
+        <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279281.svg">Overview</h3>
         <hr />
         <div class="info">@Model.overview</div>
         <table class="table table-striped">
@@ -77,39 +86,41 @@
                 </tr>
             </tbody>
         </table>
-        <a class="button button-3d button-action" href="/Dogs/Budget/@Model.id">Check its cost</a>
-    </div>
+        <br>
 
-    <div class="card">
         <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279288.svg">Origin</h3>
         <hr />
         <div class="info">@Model.origin</div>
-    </div>
+        <br>
 
-    <div class="card">
         <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279283.svg">Feeding</h3>
         <hr />
         <div class="info">@Model.feeding</div>
-    </div>
+        <br>
 
-    <div class="card">
         <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279292.svg" `>Health</h3>
         <hr />
         <div class="info">@Model.health</div>
-    </div>
+        <br>
 
-    <div class="card">
         <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279278.svg">Grooming</h3>
         <hr />
         <div class="info">@Model.grooming</div>
-    </div>
+        <br>
 
-    <div class="card">
         <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279280.svg">Fun Fact</h3>
         <hr />
         <div class="info">@Model.fun</div>
+        <br>
+
+        <h3><img class="icon" src="https://image.flaticon.com/icons/svg/1279/1279266.svg">Cost</h3>
+        <hr />
+        <a class="button button-primary-flat" href="/Dogs/Budget/@Model.id">Check its cost</a>
     </div>
 </div>
+<a id="back" class="button button-glow button-circle button-primary" href="#top" style="float:right">
+    <span class="glyphicon glyphicon-arrow-up"></span>
+</a>
 
 @{
     int newid = Model.id + 1;
@@ -119,13 +130,13 @@
     <div class="col-md-6 col-sm-6 col-xs-6">
         @if (preid != 0)
         {
-        <a style="font-size:medium" href="/Dogs/Details/@preid">&lsaquo; Previous Breed</a>
+            <a style="font-size:medium" href="/Dogs/Details/@preid">&lsaquo; Previous breed</a>
         }
     </div>
     <div class="col-md-6 col-sm-6 col-xs-6">
         @if (newid < 16)
         {
-        <a style="float:right;font-size:medium" href="/Dogs/Details/@newid">Next Breed &rsaquo;</a>
+            <a style="float:right;font-size:medium" href="/Dogs/Details/@newid">Next breed &rsaquo;</a>
         }
     </div>
 </div>
@@ -142,6 +153,24 @@
             resizePic();
             $(window).resize(function (evt) {
                 resizePic()
+            });
+
+            $(window).scroll(function () {
+                    if ($(window).scrollTop() > 600) {
+                        $("#back").fadeIn(300);
+                    }
+                    else {
+                        $("#back").fadeOut(200);
+                    }
+
+                });
+
+            $("#back").mouseover(function (evt) {
+                document.getElementById("back").innerHTML = "top";
+            });
+
+            $("#back").mouseout(function (evt) {
+                document.getElementById("back").innerHTML = "<span class=\"glyphicon glyphicon-arrow-up\"></span>";
             });
         });
     </script>

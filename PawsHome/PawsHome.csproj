@@ -173,6 +173,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.3.1.vault.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -204,18 +205,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Chart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Dogs\Create.cshtml" />
-    <Content Include="Views\Dogs\Delete.cshtml" />
     <Content Include="Views\Dogs\Details.cshtml" />
-    <Content Include="Views\Dogs\Edit.cshtml" />
     <Content Include="Views\Dogs\Index.cshtml" />
     <Content Include="Views\Dogs\Report.cshtml" />
     <Content Include="Views\Dogs\Budget.cshtml" />
-    <Content Include="Views\Activities\Create.cshtml" />
-    <Content Include="Views\Activities\Delete.cshtml" />
     <Content Include="Views\Activities\Details.cshtml" />
-    <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Activities\Index.cshtml" />
+    <Content Include="Views\Home\Map.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
